@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Randy — Apps</title>
+<meta name="description" content="Simple, focused apps for iPhone and Android.">
+<link rel="icon" type="image/png" href="icons/habittracker.png">
+<link rel="apple-touch-icon" href="icons/habittracker.png">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --text: #1c1c1e;
+    --muted: #8e8e93;
+    --hairline: rgba(0,0,0,0.08);
+    --btn-bg: #f2f2f7;
+    --btn-text: #1c1c1e;
+    --btn-border: rgba(0,0,0,0.10);
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000000;
+      --card: #1c1c1e;
+      --text: #f5f5f7;
+      --muted: #8e8e93;
+      --hairline: rgba(255,255,255,0.10);
+      --btn-bg: #2c2c2e;
+      --btn-text: #f5f5f7;
+      --btn-border: rgba(255,255,255,0.12);
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 72px 22px 56px; }
+
+  header { text-align: center; margin-bottom: 40px; }
+  header .name { font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: var(--muted); margin: 0 0 6px; text-transform: uppercase; }
+  header h1 { font-size: 30px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+  header p { font-size: 17px; color: var(--muted); margin: 8px 0 0; }
+
+  .apps { display: flex; flex-direction: column; gap: 16px; }
+
+  .app {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .app-head { display: flex; align-items: center; gap: 14px; }
+  .app-icon { width: 60px; height: 60px; border-radius: 14px; flex: none; box-shadow: 0 1px 2px rgba(0,0,0,0.12); }
+  .app-meta { min-width: 0; }
+  .app-name { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+  .app-tag { font-size: 14.5px; color: var(--muted); margin: 3px 0 0; }
+
+  .stores { display: flex; gap: 10px; margin-top: 16px; }
+  .store {
+    flex: 1;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: 1px solid var(--btn-border);
+    text-decoration: none;
+    font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+  }
+  .store:active { transform: scale(0.98); }
+  .store svg { width: 17px; height: 17px; flex: none; }
+  .store.soon {
+    background: transparent;
+    color: var(--muted);
+    border-style: dashed;
+    cursor: default;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="name">Randy</p>
+      <h1 data-i18n="headline">Handmade apps.</h1>
+      <p data-i18n="subtitle">For iPhone &amp; Android.</p>
+    </header>
+
+    <main class="apps">
+
+      <article class="app">
+        <div class="app-head">
+          <img class="app-icon" src="icons/habittracker.png" alt="HabitTracker">
+          <div class="app-meta">
+            <p class="app-name">HabitTracker</p>
+            <p class="app-tag" data-i18n="tag_ht">Simple habits, clear progress.</p>
+          </div>
+        </div>
+        <div class="stores">
+          <a class="store" href="https://apps.apple.com/app/id6781011150">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.02-2.02 1.65-2.99 1.73-3.03-.94-1.38-2.41-1.57-2.93-1.59-1.25-.13-2.44.73-3.07.73-.63 0-1.61-.71-2.65-.69-1.36.02-2.62.79-3.32 2.01-1.42 2.46-.36 6.09 1.01 8.08.67.98 1.47 2.07 2.51 2.03 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.62.63 1.08-.02 1.77-.99 2.43-1.97.77-1.13 1.08-2.22 1.1-2.28-.02-.01-2.11-.81-2.13-3.21zM15.02 6.66c.55-.67.93-1.6.82-2.53-.8.03-1.77.53-2.34 1.2-.51.59-.96 1.54-.84 2.44.89.07 1.8-.45 2.36-1.11z"/></svg>
+            App Store
+          </a>
+          <span class="store soon" data-i18n="android_soon">Android soon</span>
+        </div>
+      </article>
+
+      <article class="app">
+        <div class="app-head">
+          <img class="app-icon" src="icons/soon.png" alt="Soon">
+          <div class="app-meta">
+            <p class="app-name">Soon</p>
+            <p class="app-tag" data-i18n="tag_soon">Never miss a renewal or expiration.</p>
+          </div>
+        </div>
+        <div class="stores">
+          <a class="store" href="https://apps.apple.com/app/id6781862456">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.02-2.02 1.65-2.99 1.73-3.03-.94-1.38-2.41-1.57-2.93-1.59-1.25-.13-2.44.73-3.07.73-.63 0-1.61-.71-2.65-.69-1.36.02-2.62.79-3.32 2.01-1.42 2.46-.36 6.09 1.01 8.08.67.98 1.47 2.07 2.51 2.03 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.62.63 1.08-.02 1.77-.99 2.43-1.97.77-1.13 1.08-2.22 1.1-2.28-.02-.01-2.11-.81-2.13-3.21zM15.02 6.66c.55-.67.93-1.6.82-2.53-.8.03-1.77.53-2.34 1.2-.51.59-.96 1.54-.84 2.44.89.07 1.8-.45 2.36-1.11z"/></svg>
+            App Store
+          </a>
+          <span class="store soon" data-i18n="android_soon">Android soon</span>
+        </div>
+      </article>
+
+      <article class="app">
+        <div class="app-head">
+          <img class="app-icon" src="icons/stash.png" alt="Stash">
+          <div class="app-meta">
+            <p class="app-name">Stash</p>
+            <p class="app-tag" data-i18n="tag_stash">Save for what you want, and watch it fill up.</p>
+          </div>
+        </div>
+        <div class="stores">
+          <a class="store" href="https://apps.apple.com/app/id6785053395">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.02-2.02 1.65-2.99 1.73-3.03-.94-1.38-2.41-1.57-2.93-1.59-1.25-.13-2.44.73-3.07.73-.63 0-1.61-.71-2.65-.69-1.36.02-2.62.79-3.32 2.01-1.42 2.46-.36 6.09 1.01 8.08.67.98 1.47 2.07 2.51 2.03 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.62.63 1.08-.02 1.77-.99 2.43-1.97.77-1.13 1.08-2.22 1.1-2.28-.02-.01-2.11-.81-2.13-3.21zM15.02 6.66c.55-.67.93-1.6.82-2.53-.8.03-1.77.53-2.34 1.2-.51.59-.96 1.54-.84 2.44.89.07 1.8-.45 2.36-1.11z"/></svg>
+            App Store
+          </a>
+          <span class="store soon" data-i18n="android_soon">Android soon</span>
+        </div>
+      </article>
+
+      <article class="app">
+        <div class="app-head">
+          <img class="app-icon" src="icons/timetracker.png" alt="Time Tracker">
+          <div class="app-meta">
+            <p class="app-name">Time Tracker</p>
+            <p class="app-tag" data-i18n="tag_tt">Track hours, send invoices.</p>
+          </div>
+        </div>
+        <div class="stores">
+          <a class="store" href="https://apps.apple.com/app/id6793560801">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.02-2.02 1.65-2.99 1.73-3.03-.94-1.38-2.41-1.57-2.93-1.59-1.25-.13-2.44.73-3.07.73-.63 0-1.61-.71-2.65-.69-1.36.02-2.62.79-3.32 2.01-1.42 2.46-.36 6.09 1.01 8.08.67.98 1.47 2.07 2.51 2.03 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.62.63 1.08-.02 1.77-.99 2.43-1.97.77-1.13 1.08-2.22 1.1-2.28-.02-.01-2.11-.81-2.13-3.21zM15.02 6.66c.55-.67.93-1.6.82-2.53-.8.03-1.77.53-2.34 1.2-.51.59-.96 1.54-.84 2.44.89.07 1.8-.45 2.36-1.11z"/></svg>
+            App Store
+          </a>
+          <span class="store soon" data-i18n="android_soon">Android soon</span>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <script>
+    // Auto-localización a los 6 idiomas del sello; inglés queda en el HTML como fallback.
+    (function () {
+      var STRINGS = {
+        es: {
+          headline: "Apps hechas a mano.",
+          subtitle: "Para iPhone y Android.",
+          tag_ht: "Hábitos simples, progreso claro.",
+          tag_soon: "No olvides una renovación o un vencimiento.",
+          tag_stash: "Ahorra para lo que quieres y míralo llenarse.",
+          tag_tt: "Controla tus horas y envía facturas.",
+          android_soon: "Android pronto"
+        },
+        pt: {
+          headline: "Apps feitos à mão.",
+          subtitle: "Para iPhone e Android.",
+          tag_ht: "Hábitos simples, progresso claro.",
+          tag_soon: "Nunca perca uma renovação ou vencimento.",
+          tag_stash: "Junte dinheiro para o que você quer e veja encher.",
+          tag_tt: "Controle suas horas e envie faturas.",
+          android_soon: "Android em breve"
+        },
+        zh: {
+          headline: "手工打造的应用。",
+          subtitle: "支持 iPhone 和 Android。",
+          tag_ht: "简单习惯，清晰进步。",
+          tag_soon: "不再错过续订或到期。",
+          tag_stash: "为心愿存钱，看着它慢慢充满。",
+          tag_tt: "记录工时，发送账单。",
+          android_soon: "Android 即将推出"
+        },
+        de: {
+          headline: "Handgemachte Apps.",
+          subtitle: "Für iPhone und Android.",
+          tag_ht: "Einfache Gewohnheiten, klarer Fortschritt.",
+          tag_soon: "Verpasse nie eine Verlängerung oder ein Ablaufdatum.",
+          tag_stash: "Spare für das, was du willst, und sieh zu, wie es sich füllt.",
+          tag_tt: "Stunden erfassen, Rechnungen senden.",
+          android_soon: "Android bald"
+        },
+        fr: {
+          headline: "Des apps faites main.",
+          subtitle: "Pour iPhone et Android.",
+          tag_ht: "Des habitudes simples, des progrès clairs.",
+          tag_soon: "Ne manquez jamais un renouvellement ou une échéance.",
+          tag_stash: "Épargnez pour ce que vous voulez et voyez la cagnotte grimper.",
+          tag_tt: "Suivez vos heures, envoyez vos factures.",
+          android_soon: "Android bientôt"
+        }
+      };
+      var forced = (location.search.match(/[?&]lang=([a-z-]+)/i) || [])[1];
+      var tag = (forced || navigator.language || navigator.userLanguage || "en").toLowerCase();
+      var lang = tag.indexOf("es") === 0 ? "es"
+               : tag.indexOf("pt") === 0 ? "pt"
+               : tag.indexOf("zh") === 0 ? "zh"
+               : tag.indexOf("de") === 0 ? "de"
+               : tag.indexOf("fr") === 0 ? "fr"
+               : null;
+      if (!lang) return;
+      document.documentElement.lang = lang === "zh" ? "zh-Hans" : lang;
+      var dict = STRINGS[lang];
+      var nodes = document.querySelectorAll("[data-i18n]");
+      for (var i = 0; i < nodes.length; i++) {
+        var v = dict[nodes[i].getAttribute("data-i18n")];
+        if (v) nodes[i].textContent = v;
+      }
+    })();
+  </script>
+</body>
+</html>
