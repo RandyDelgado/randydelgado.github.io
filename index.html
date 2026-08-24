@@ -87,6 +87,8 @@
     cursor: default;
     font-weight: 500;
   }
+
+  .ext-hint { display: none; text-align: center; margin: -22px 0 30px; font-size: 13.5px; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -96,6 +98,8 @@
       <h1 data-i18n="headline">Handmade apps.</h1>
       <p data-i18n="subtitle">For iPhone &amp; Android.</p>
     </header>
+
+    <p class="ext-hint" id="extHint" data-i18n="open_in_browser">Tip: to download, open this page in your browser.</p>
 
     <main class="apps">
 
@@ -181,7 +185,8 @@
           tag_soon: "No olvides una renovación o un vencimiento.",
           tag_stash: "Ahorra para lo que quieres y míralo llenarse.",
           tag_tt: "Controla tus horas y envía facturas.",
-          android_soon: "Android pronto"
+          android_soon: "Android pronto",
+          open_in_browser: "Consejo: para descargar, abre esta página en tu navegador."
         },
         pt: {
           headline: "Apps feitos à mão.",
@@ -190,7 +195,8 @@
           tag_soon: "Nunca perca uma renovação ou vencimento.",
           tag_stash: "Junte dinheiro para o que você quer e veja encher.",
           tag_tt: "Controle suas horas e envie faturas.",
-          android_soon: "Android em breve"
+          android_soon: "Android em breve",
+          open_in_browser: "Dica: para baixar, abra esta página no seu navegador."
         },
         zh: {
           headline: "手工打造的应用。",
@@ -199,7 +205,8 @@
           tag_soon: "不再错过续订或到期。",
           tag_stash: "为心愿存钱，看着它慢慢充满。",
           tag_tt: "记录工时，发送账单。",
-          android_soon: "Android 即将推出"
+          android_soon: "Android 即将推出",
+          open_in_browser: "提示：如需下载，请在浏览器中打开此页面。"
         },
         de: {
           headline: "Handgemachte Apps.",
@@ -208,7 +215,8 @@
           tag_soon: "Verpasse nie eine Verlängerung oder ein Ablaufdatum.",
           tag_stash: "Spare für das, was du willst, und sieh zu, wie es sich füllt.",
           tag_tt: "Stunden erfassen, Rechnungen senden.",
-          android_soon: "Android bald"
+          android_soon: "Android bald",
+          open_in_browser: "Tipp: Zum Herunterladen diese Seite im Browser öffnen."
         },
         fr: {
           headline: "Des apps faites main.",
@@ -217,7 +225,8 @@
           tag_soon: "Ne manquez jamais un renouvellement ou une échéance.",
           tag_stash: "Épargnez pour ce que vous voulez et voyez la cagnotte grimper.",
           tag_tt: "Suivez vos heures, envoyez vos factures.",
-          android_soon: "Android bientôt"
+          android_soon: "Android bientôt",
+          open_in_browser: "Astuce : pour télécharger, ouvrez cette page dans votre navigateur."
         }
       };
       var forced = (location.search.match(/[?&]lang=([a-z-]+)/i) || [])[1];
@@ -228,13 +237,29 @@
                : tag.indexOf("de") === 0 ? "de"
                : tag.indexOf("fr") === 0 ? "fr"
                : null;
-      if (!lang) return;
-      document.documentElement.lang = lang === "zh" ? "zh-Hans" : lang;
-      var dict = STRINGS[lang];
-      var nodes = document.querySelectorAll("[data-i18n]");
-      for (var i = 0; i < nodes.length; i++) {
-        var v = dict[nodes[i].getAttribute("data-i18n")];
-        if (v) nodes[i].textContent = v;
+      if (lang) {
+        document.documentElement.lang = lang === "zh" ? "zh-Hans" : lang;
+        var dict = STRINGS[lang];
+        var nodes = document.querySelectorAll("[data-i18n]");
+        for (var i = 0; i < nodes.length; i++) {
+          var v = dict[nodes[i].getAttribute("data-i18n")];
+          if (v) nodes[i].textContent = v;
+        }
+      }
+
+      // Los navegadores internos (TikTok/Instagram/FB) rompen el salto a la App Store desde un link https.
+      // En iOS usamos el esquema nativo itms-apps:// (el webview sí lo deja pasar) y mostramos un hint de respaldo.
+      var ua = navigator.userAgent || "";
+      var inApp = /FBAN|FBAV|Instagram|Line\/|Twitter|TikTok|musical_ly|BytedanceWebview|; wv\)/i.test(ua);
+      if (inApp) {
+        var hint = document.getElementById("extHint");
+        if (hint) hint.style.display = "block";
+        if (/iPhone|iPad|iPod/i.test(ua)) {
+          var links = document.querySelectorAll('a.store[href^="https://apps.apple.com"]');
+          for (var j = 0; j < links.length; j++) {
+            links[j].href = links[j].href.replace("https://apps.apple.com", "itms-apps://apps.apple.com");
+          }
+        }
       }
     })();
   </script>
