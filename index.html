@@ -88,18 +88,18 @@
     font-weight: 500;
   }
 
-  .ext-hint {
-    display: none;
-    text-align: center;
-    margin: -14px 0 30px;
-    padding: 12px 16px;
-    font-size: 13.5px;
-    line-height: 1.45;
-    color: var(--text);
-    background: var(--btn-bg);
-    border: 1px solid var(--btn-border);
-    border-radius: 12px;
+  .inapp-cta { display: none; text-align: center; margin: -6px 0 32px; }
+  .inapp-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; height: 50px; border-radius: 13px;
+    background: var(--text); color: var(--bg);
+    text-decoration: none; font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+    transition: transform 0.12s ease;
   }
+  .inapp-btn::after { content: "\2197"; font-weight: 600; }
+  .inapp-btn:active { transform: scale(0.99); }
+  .inapp-note { font-size: 13px; color: var(--muted); margin: 12px 0 0; line-height: 1.45; }
+  body.inapp .stores { display: none; }
 </style>
 </head>
 <body>
@@ -110,7 +110,10 @@
       <p data-i18n="subtitle">For iPhone &amp; Android.</p>
     </header>
 
-    <p class="ext-hint" id="extHint" data-i18n="open_in_browser">If a button won't open, tap ··· at the top and choose "Open in browser".</p>
+    <div class="inapp-cta" id="inappCta">
+      <a class="inapp-btn" id="inappBtn" href="#" data-i18n="download_cta">Open in browser to download</a>
+      <p class="inapp-note" data-i18n="open_in_browser">If nothing happens, tap ··· at the top and choose "Open in browser".</p>
+    </div>
 
     <main class="apps">
 
@@ -197,7 +200,8 @@
           tag_stash: "Ahorra para lo que quieres y míralo llenarse.",
           tag_tt: "Controla tus horas y envía facturas.",
           android_soon: "Android pronto",
-          open_in_browser: "Si un botón no abre, toca ··· arriba y elige \"Abrir en el navegador\"."
+          download_cta: "Abrir en el navegador para descargar",
+          open_in_browser: "Si no pasa nada, toca ··· arriba y elige \"Abrir en el navegador\"."
         },
         pt: {
           headline: "Apps feitos à mão.",
@@ -207,7 +211,8 @@
           tag_stash: "Junte dinheiro para o que você quer e veja encher.",
           tag_tt: "Controle suas horas e envie faturas.",
           android_soon: "Android em breve",
-          open_in_browser: "Se um botão não abrir, toque em ··· acima e escolha \"Abrir no navegador\"."
+          download_cta: "Abrir no navegador para baixar",
+          open_in_browser: "Se nada acontecer, toque em ··· acima e escolha \"Abrir no navegador\"."
         },
         zh: {
           headline: "手工打造的应用。",
@@ -217,7 +222,8 @@
           tag_stash: "为心愿存钱，看着它慢慢充满。",
           tag_tt: "记录工时，发送账单。",
           android_soon: "Android 即将推出",
-          open_in_browser: "如果按钮打不开，点按上方的 ··· 并选择\"在浏览器中打开\"。"
+          download_cta: "在浏览器中打开以下载",
+          open_in_browser: "如果没有反应，点按上方的 ··· 并选择\"在浏览器中打开\"。"
         },
         de: {
           headline: "Handgemachte Apps.",
@@ -227,7 +233,8 @@
           tag_stash: "Spare für das, was du willst, und sieh zu, wie es sich füllt.",
           tag_tt: "Stunden erfassen, Rechnungen senden.",
           android_soon: "Android bald",
-          open_in_browser: "Wenn ein Button nicht öffnet: oben auf ··· tippen und \"Im Browser öffnen\" wählen."
+          download_cta: "Im Browser öffnen zum Herunterladen",
+          open_in_browser: "Wenn nichts passiert: oben auf ··· tippen und \"Im Browser öffnen\" wählen."
         },
         fr: {
           headline: "Des apps faites main.",
@@ -237,7 +244,8 @@
           tag_stash: "Épargnez pour ce que vous voulez et voyez la cagnotte grimper.",
           tag_tt: "Suivez vos heures, envoyez vos factures.",
           android_soon: "Android bientôt",
-          open_in_browser: "Si un bouton ne s'ouvre pas, appuyez sur ··· en haut et choisissez \"Ouvrir dans le navigateur\"."
+          download_cta: "Ouvrir dans le navigateur pour télécharger",
+          open_in_browser: "Si rien ne se passe, appuyez sur ··· en haut et choisissez \"Ouvrir dans le navigateur\"."
         }
       };
       var forced = (location.search.match(/[?&]lang=([a-z-]+)/i) || [])[1];
@@ -258,18 +266,26 @@
         }
       }
 
-      // Los navegadores internos (TikTok/Instagram/FB) no dejan abrir la App Store desde adentro. En iOS el
-      // prefijo x-safari-https:// fuerza a iOS a abrir el link en Safari (donde el botón Obtener sí funciona);
-      // el banner queda de respaldo por si el webview igual lo bloquea (ahí: ··· -> Abrir en el navegador).
+      // Los navegadores internos (TikTok/Instagram/FB) no dejan abrir la App Store desde adentro: los botones
+      // darían error. Entonces los ocultamos y mostramos un CTA para abrir en el navegador, donde todo sirve.
+      // En iOS el CTA usa x-safari-https:// para saltar a Safari; si el webview lo bloquea, la nota indica el
+      // paso manual (··· -> Abrir en el navegador). En el navegador real inApp es falso y los botones vuelven.
       var ua = navigator.userAgent || "";
-      var inApp = /FBAN|FBAV|Instagram|Line\/|Twitter|TikTok|musical_ly|BytedanceWebview|; wv\)/i.test(ua);
+      var forcedInApp = /[?&]inapp=1/.test(location.search);
+      var inApp = /FBAN|FBAV|Instagram|Line\/|Twitter|TikTok|musical_ly|BytedanceWebview|; wv\)/i.test(ua) || forcedInApp;
       if (inApp) {
-        var hint = document.getElementById("extHint");
-        if (hint) hint.style.display = "block";
-        if (/iPhone|iPad|iPod/i.test(ua)) {
-          var links = document.querySelectorAll('a.store[href^="https://apps.apple.com"]');
-          for (var j = 0; j < links.length; j++) {
-            links[j].href = links[j].href.replace("https://apps.apple.com", "x-safari-https://apps.apple.com");
+        document.body.classList.add("inapp");
+        var cta = document.getElementById("inappCta");
+        if (cta) cta.style.display = "block";
+        var btn = document.getElementById("inappBtn");
+        if (btn) {
+          if (/iPhone|iPad|iPod/i.test(ua) || forcedInApp) {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault();
+              window.location.href = "x-safari-" + location.href.split("#")[0];
+            });
+          } else {
+            btn.style.display = "none";
           }
         }
       }
