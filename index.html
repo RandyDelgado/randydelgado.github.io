@@ -88,7 +88,18 @@
     font-weight: 500;
   }
 
-  .ext-hint { display: none; text-align: center; margin: -22px 0 30px; font-size: 13.5px; color: var(--muted); }
+  .ext-hint {
+    display: none;
+    text-align: center;
+    margin: -14px 0 30px;
+    padding: 12px 16px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--text);
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 12px;
+  }
 </style>
 </head>
 <body>
@@ -99,7 +110,7 @@
       <p data-i18n="subtitle">For iPhone &amp; Android.</p>
     </header>
 
-    <p class="ext-hint" id="extHint" data-i18n="open_in_browser">Tip: to download, open this page in your browser.</p>
+    <p class="ext-hint" id="extHint" data-i18n="open_in_browser">If a button won't open, tap ··· at the top and choose "Open in browser".</p>
 
     <main class="apps">
 
@@ -186,7 +197,7 @@
           tag_stash: "Ahorra para lo que quieres y míralo llenarse.",
           tag_tt: "Controla tus horas y envía facturas.",
           android_soon: "Android pronto",
-          open_in_browser: "Consejo: para descargar, abre esta página en tu navegador."
+          open_in_browser: "Si un botón no abre, toca ··· arriba y elige \"Abrir en el navegador\"."
         },
         pt: {
           headline: "Apps feitos à mão.",
@@ -196,7 +207,7 @@
           tag_stash: "Junte dinheiro para o que você quer e veja encher.",
           tag_tt: "Controle suas horas e envie faturas.",
           android_soon: "Android em breve",
-          open_in_browser: "Dica: para baixar, abra esta página no seu navegador."
+          open_in_browser: "Se um botão não abrir, toque em ··· acima e escolha \"Abrir no navegador\"."
         },
         zh: {
           headline: "手工打造的应用。",
@@ -206,7 +217,7 @@
           tag_stash: "为心愿存钱，看着它慢慢充满。",
           tag_tt: "记录工时，发送账单。",
           android_soon: "Android 即将推出",
-          open_in_browser: "提示：如需下载，请在浏览器中打开此页面。"
+          open_in_browser: "如果按钮打不开，点按上方的 ··· 并选择\"在浏览器中打开\"。"
         },
         de: {
           headline: "Handgemachte Apps.",
@@ -216,7 +227,7 @@
           tag_stash: "Spare für das, was du willst, und sieh zu, wie es sich füllt.",
           tag_tt: "Stunden erfassen, Rechnungen senden.",
           android_soon: "Android bald",
-          open_in_browser: "Tipp: Zum Herunterladen diese Seite im Browser öffnen."
+          open_in_browser: "Wenn ein Button nicht öffnet: oben auf ··· tippen und \"Im Browser öffnen\" wählen."
         },
         fr: {
           headline: "Des apps faites main.",
@@ -226,7 +237,7 @@
           tag_stash: "Épargnez pour ce que vous voulez et voyez la cagnotte grimper.",
           tag_tt: "Suivez vos heures, envoyez vos factures.",
           android_soon: "Android bientôt",
-          open_in_browser: "Astuce : pour télécharger, ouvrez cette page dans votre navigateur."
+          open_in_browser: "Si un bouton ne s'ouvre pas, appuyez sur ··· en haut et choisissez \"Ouvrir dans le navigateur\"."
         }
       };
       var forced = (location.search.match(/[?&]lang=([a-z-]+)/i) || [])[1];
@@ -247,8 +258,9 @@
         }
       }
 
-      // Los navegadores internos (TikTok/Instagram/FB) rompen el salto a la App Store desde un link https.
-      // En iOS usamos el esquema nativo itms-apps:// (el webview sí lo deja pasar) y mostramos un hint de respaldo.
+      // Los navegadores internos (TikTok/Instagram/FB) no dejan abrir la App Store desde adentro. En iOS el
+      // prefijo x-safari-https:// fuerza a iOS a abrir el link en Safari (donde el botón Obtener sí funciona);
+      // el banner queda de respaldo por si el webview igual lo bloquea (ahí: ··· -> Abrir en el navegador).
       var ua = navigator.userAgent || "";
       var inApp = /FBAN|FBAV|Instagram|Line\/|Twitter|TikTok|musical_ly|BytedanceWebview|; wv\)/i.test(ua);
       if (inApp) {
@@ -257,7 +269,7 @@
         if (/iPhone|iPad|iPod/i.test(ua)) {
           var links = document.querySelectorAll('a.store[href^="https://apps.apple.com"]');
           for (var j = 0; j < links.length; j++) {
-            links[j].href = links[j].href.replace("https://apps.apple.com", "itms-apps://apps.apple.com");
+            links[j].href = links[j].href.replace("https://apps.apple.com", "x-safari-https://apps.apple.com");
           }
         }
       }
