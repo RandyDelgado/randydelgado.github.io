@@ -88,38 +88,6 @@
     font-weight: 500;
   }
 
-  /* Banner temporal de la beta de Android (HabitTracker). Remover junto con su bloque HTML al cerrar la beta. */
-  .beta {
-    background: var(--card);
-    border: 1px solid var(--hairline);
-    border-radius: 22px;
-    padding: 22px 20px;
-    box-shadow: var(--shadow);
-    margin-bottom: 16px;
-    text-align: center;
-  }
-  .beta-pill {
-    display: inline-block;
-    background: var(--text); color: var(--bg);
-    font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 3px 10px; border-radius: 999px; margin-bottom: 12px;
-  }
-  .beta-title { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
-  .beta-sub { font-size: 14.5px; color: var(--muted); margin: 6px 0 16px; }
-  .beta-actions { display: flex; flex-direction: column; gap: 10px; }
-  .beta-btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    height: 44px; border-radius: 12px;
-    background: var(--btn-bg); color: var(--btn-text);
-    border: 1px solid var(--btn-border);
-    text-decoration: none; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
-    transition: transform 0.12s ease;
-  }
-  .beta-btn.primary { background: var(--text); color: var(--bg); border-color: transparent; }
-  .beta-btn:active { transform: scale(0.98); }
-  .beta-note { font-size: 13px; margin: 14px 0 0; }
-  .beta-note a { color: var(--muted); }
-
   .inapp-cta { display: none; position: fixed; top: 12px; right: 12px; z-index: 20; max-width: 210px; }
   .inapp-note {
     position: relative;
@@ -148,19 +116,6 @@
       <p class="inapp-note" data-i18n="open_in_browser">Tap ··· above, then "Open in browser" to download.</p>
     </div>
 
-    <!-- BETA BANNER — HabitTracker para Android · bloque temporal, remover (junto con su CSS y strings) al cerrar la beta -->
-    <section class="beta">
-      <span class="beta-pill">Beta</span>
-      <h2 class="beta-title" data-i18n="beta_title">HabitTracker for Android</h2>
-      <p class="beta-sub" data-i18n="beta_sub">The Android beta is open — help test it. Two quick steps:</p>
-      <div class="beta-actions">
-        <a class="beta-btn primary" href="https://groups.google.com/g/habittracker-testers" data-i18n="beta_b1">1 · Join the testers group</a>
-        <a class="beta-btn" href="https://play.google.com/apps/testing/com.randydelgado.habittracker" data-i18n="beta_b2">2 · Opt in, then install</a>
-      </div>
-      <p class="beta-note"><a href="https://play.google.com/store/apps/details?id=com.randydelgado.habittracker" data-i18n="beta_note">Already opted in? Open in Google Play</a></p>
-    </section>
-    <!-- /BETA BANNER -->
-
     <main class="apps">
 
       <article class="app">
@@ -176,10 +131,7 @@
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.02-2.02 1.65-2.99 1.73-3.03-.94-1.38-2.41-1.57-2.93-1.59-1.25-.13-2.44.73-3.07.73-.63 0-1.61-.71-2.65-.69-1.36.02-2.62.79-3.32 2.01-1.42 2.46-.36 6.09 1.01 8.08.67.98 1.47 2.07 2.51 2.03 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.62.63 1.08-.02 1.77-.99 2.43-1.97.77-1.13 1.08-2.22 1.1-2.28-.02-.01-2.11-.81-2.13-3.21zM15.02 6.66c.55-.67.93-1.6.82-2.53-.8.03-1.77.53-2.34 1.2-.51.59-.96 1.54-.84 2.44.89.07 1.8-.45 2.36-1.11z"/></svg>
             App Store
           </a>
-          <a class="store" href="https://play.google.com/apps/testing/com.randydelgado.habittracker">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-1.43-.65-3.03-1.01-4.71-1.01-1.68 0-3.28.36-4.71 1.01L5.17 5.67c-.18-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85L5.92 9.48C3.15 11.02 1.35 13.86 1 17h22c-.35-3.14-2.15-5.98-4.4-7.52zM7 14.25c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
-            <span data-i18n="ht_android_beta">Android beta</span>
-          </a>
+          <span class="store soon" data-i18n="android_soon">Android soon</span>
         </div>
       </article>
 
@@ -249,13 +201,7 @@
           tag_stash: "Ahorra para lo que quieres y míralo llenarse.",
           tag_tt: "Controla tus horas y envía facturas.",
           android_soon: "Android pronto",
-          open_in_browser: "Toca ··· aquí arriba y \"Abrir en el navegador\" para descargar.",
-          ht_android_beta: "Beta de Android",
-          beta_title: "HabitTracker para Android",
-          beta_sub: "La beta de Android ya está abierta: ayúdanos a probarla. Dos pasos rápidos:",
-          beta_b1: "1 · Únete al grupo de testers",
-          beta_b2: "2 · Anótate e instala",
-          beta_note: "¿Ya te anotaste? Ábrela en Google Play"
+          open_in_browser: "Toca ··· aquí arriba y \"Abrir en el navegador\" para descargar."
         },
         pt: {
           headline: "Apps feitos à mão.",
@@ -265,13 +211,7 @@
           tag_stash: "Junte dinheiro para o que você quer e veja encher.",
           tag_tt: "Controle suas horas e envie faturas.",
           android_soon: "Android em breve",
-          open_in_browser: "Toque em ··· aqui em cima e \"Abrir no navegador\" para baixar.",
-          ht_android_beta: "Beta Android",
-          beta_title: "HabitTracker para Android",
-          beta_sub: "A beta para Android está aberta — ajude a testar. Dois passos rápidos:",
-          beta_b1: "1 · Entre no grupo de testadores",
-          beta_b2: "2 · Inscreva-se e instale",
-          beta_note: "Já se inscreveu? Abra no Google Play"
+          open_in_browser: "Toque em ··· aqui em cima e \"Abrir no navegador\" para baixar."
         },
         zh: {
           headline: "手工打造的应用。",
@@ -281,13 +221,7 @@
           tag_stash: "为心愿存钱，看着它慢慢充满。",
           tag_tt: "记录工时，发送账单。",
           android_soon: "Android 即将推出",
-          open_in_browser: "点按上方的 ··· 并选择\"在浏览器中打开\"即可下载。",
-          ht_android_beta: "Android 测试版",
-          beta_title: "HabitTracker Android 版",
-          beta_sub: "Android 测试版已开放——欢迎参与测试。两个简单步骤：",
-          beta_b1: "1 · 加入测试者群组",
-          beta_b2: "2 · 报名并安装",
-          beta_note: "已报名？在 Google Play 中打开"
+          open_in_browser: "点按上方的 ··· 并选择\"在浏览器中打开\"即可下载。"
         },
         de: {
           headline: "Handgemachte Apps.",
@@ -297,13 +231,7 @@
           tag_stash: "Spare für das, was du willst, und sieh zu, wie es sich füllt.",
           tag_tt: "Stunden erfassen, Rechnungen senden.",
           android_soon: "Android bald",
-          open_in_browser: "Oben auf ··· tippen und \"Im Browser öffnen\" zum Herunterladen.",
-          ht_android_beta: "Android-Beta",
-          beta_title: "HabitTracker für Android",
-          beta_sub: "Die Android-Beta ist offen — hilf beim Testen. Zwei schnelle Schritte:",
-          beta_b1: "1 · Tritt der Tester-Gruppe bei",
-          beta_b2: "2 · Anmelden und installieren",
-          beta_note: "Schon angemeldet? In Google Play öffnen"
+          open_in_browser: "Oben auf ··· tippen und \"Im Browser öffnen\" zum Herunterladen."
         },
         fr: {
           headline: "Des apps faites main.",
@@ -313,13 +241,7 @@
           tag_stash: "Épargnez pour ce que vous voulez et voyez la cagnotte grimper.",
           tag_tt: "Suivez vos heures, envoyez vos factures.",
           android_soon: "Android bientôt",
-          open_in_browser: "Appuyez sur ··· ci-dessus puis \"Ouvrir dans le navigateur\" pour télécharger.",
-          ht_android_beta: "Bêta Android",
-          beta_title: "HabitTracker pour Android",
-          beta_sub: "La bêta Android est ouverte — aidez à la tester. Deux étapes rapides :",
-          beta_b1: "1 · Rejoignez le groupe de testeurs",
-          beta_b2: "2 · Inscrivez-vous, puis installez",
-          beta_note: "Déjà inscrit ? Ouvrir dans Google Play"
+          open_in_browser: "Appuyez sur ··· ci-dessus puis \"Ouvrir dans le navigateur\" pour télécharger."
         }
       };
       var forced = (location.search.match(/[?&]lang=([a-z-]+)/i) || [])[1];
