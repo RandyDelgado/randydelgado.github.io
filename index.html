@@ -358,9 +358,14 @@
       // adentro: cualquier link da error. Entonces ocultamos los botones y mostramos un cartelito esquinado
       // que apunta al menú ··· (único camino real). En el navegador de verdad inApp es falso y los botones vuelven.
       var ua = navigator.userAgent || "";
-      var inApp = /FBAN|FBAV|Instagram|Line\/|Twitter|TikTok|musical_ly|BytedanceWebview|; wv\)/i.test(ua)
-                  || /[?&]inapp=1/.test(location.search);
-      if (inApp) {
+      // El bloqueo de in-app es SOLO para iOS: ahí los links de App Store (itms/apps.apple.com) NO abren dentro de
+      // TikTok/IG, así que ocultamos los botones y mostramos el cartelito "abrir en navegador". En Android los links
+      // de Play / Google Group SÍ abren en el navegador interno -> dejamos los botones visibles (los de Android son
+      // justo los que esa gente quiere). El preview forzado (?inapp=1) sigue funcionando en cualquier plataforma.
+      var isIOS = /iPhone|iPad|iPod/i.test(ua) && !/Android/i.test(ua);
+      var realInApp = /FBAN|FBAV|Instagram|Line\/|Twitter|TikTok|musical_ly|BytedanceWebview|; wv\)/i.test(ua);
+      var forcedInApp = /[?&]inapp=1/.test(location.search);
+      if (forcedInApp || (realInApp && isIOS)) {
         document.body.classList.add("inapp");
         var cta = document.getElementById("inappCta");
         if (cta) cta.style.display = "block";
